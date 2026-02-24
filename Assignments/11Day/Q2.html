@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Task 2 – Bulb On/Off</title>
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            margin: 40px;
+            text-align: center;
+        }
+
+        .stage {
+            margin: 24px auto 16px;
+            width: 160px;
+        }
+
+        .bulb {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: #555;
+            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.7);
+            position: relative;
+            transition: all 250ms ease;
+        }
+
+        .stem {
+            width: 60px;
+            height: 28px;
+            margin: 0 auto;
+            background: #666;
+            border-radius: 0 0 8px 8px;
+            transform: translateY(-6px);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .bulb.on {
+            background: #ffd400;
+            box-shadow:
+                0 0 22px 8px rgba(255, 212, 0, 0.7),
+                0 0 60px 20px rgba(255, 212, 0, 0.35),
+                inset 0 0 18px rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            padding: 10px 16px;
+            margin: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Bulb Controller</h2>
+
+    <div class="stage">
+        <div id="bulb" class="bulb" aria-label="Light bulb"></div>
+        <div class="stem"></div>
+    </div>
+
+    <div>
+        <button id="onBtn">Turn On</button>
+        <button id="offBtn" disabled>Turn Off</button>
+    </div>
+
+    <script>
+        (function () {
+            const bulb = document.getElementById('bulb');
+            const onBtn = document.getElementById('onBtn');
+            const offBtn = document.getElementById('offBtn');
+
+            function turnOn() {
+                bulb.classList.add('on');
+                onBtn.disabled = true;
+                offBtn.disabled = false;
+            }
+
+            function turnOff() {
+                bulb.classList.remove('on');
+                onBtn.disabled = false;
+                offBtn.disabled = true;
+            }
+
+            onBtn.addEventListener('click', turnOn);
+            offBtn.addEventListener('click', turnOff);
+        })();
+    </script>
+</body>
+
+</html>

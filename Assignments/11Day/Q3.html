@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Task 3 – Move the Car</title>
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .road {
+            position: relative;
+            width: 700px;
+            height: 120px;
+            border: 2px dashed #bbb;
+            border-radius: 12px;
+            background: linear-gradient(#ddd, #eee);
+            overflow: hidden;
+        }
+
+        .lane {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 60px;
+            height: 4px;
+            background: repeating-linear-gradient(to right,
+                    #fff,
+                    #fff 20px,
+                    transparent 20px,
+                    transparent 40px);
+            opacity: 0.7;
+        }
+
+        .car {
+            position: absolute;
+            top: 18px;
+            left: 0;
+            font-size: 56px;
+            /* big emoji car */
+            transform: translateX(0);
+            transition: transform 200ms ease;
+            /* smooth step */
+        }
+
+        button {
+            margin-top: 14px;
+            padding: 10px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Move the Car</h2>
+
+    <div class="road" id="road">
+        <div class="lane"></div>
+        <div class="car" id="car" aria-label="Car">🚗</div>
+    </div>
+
+    <button id="moveBtn">Move Forward</button>
+
+    <script>
+        (function () {
+            const car = document.getElementById('car');
+            const road = document.getElementById('road');
+            const moveBtn = document.getElementById('moveBtn');
+
+            let x = 0;
+            const step = 40;
+
+            function move() {
+                const roadWidth = road.clientWidth;
+                const carWidth = car.getBoundingClientRect().width;
+
+
+                x += step;
+
+
+                const maxX = roadWidth - carWidth - 10;
+                if (x > maxX) x = 0;
+
+                car.style.transform = `translateX(${x}px)`;
+            }
+
+            moveBtn.addEventListener('click', move);
+        })();
+    </script>
+</body>
+
+</html>
