@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Task 1 – Birthday Message</title>
+  <style>
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      margin: 40px;
+    }
+
+    h4 {
+      margin-bottom: 8px;
+    }
+
+    #msg {
+      margin: 12px 0 16px;
+      font-size: 16px;
+      color: #333;
+      transition: all 300ms ease;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .party {
+      margin: 16px 0;
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: 1px;
+      color: transparent;
+      background: linear-gradient(90deg,
+          #ff5f6d, #ffc371, #42e695, #3bb2b8, #c94b4b, #f45c43, #ff5f6d);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: gradient-slide 3s linear infinite;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    @keyframes gradient-slide {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .confetti {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .confetti img {
+      max-width: 260px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h4>There is a message for you!!</h4>
+
+  <p id="msg">wait..</p>
+
+  <button id="btn">Click here to get it!</button>
+
+  <div class="confetti" id="confetti">
+    <img alt="Party confetti" src="https://media.giphy.com/media/3o6Zt8MgUuvSbkZYWc/giphy.gif" />
+  </div>
+
+  <script>
+    (function () {
+      const msg = document.getElementById('msg');
+      const btn = document.getElementById('btn');
+      const confetti = document.getElementById('confetti');
+
+      const colors = ['#e91e63', '#3f51b5', '#009688', '#ff9800', '#9c27b0', '#4caf50', '#795548'];
+      let clickCount = 0;
+      let currentFontSize = 16;
+
+      btn.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickCount < 4) {
+          currentFontSize += 20;
+          const color = colors[(clickCount - 1) % colors.length];
+          msg.style.fontSize = currentFontSize + 'px';
+          msg.style.color = color;
+          msg.textContent = 'wait..';
+        } else {
+          msg.removeAttribute('style');
+          msg.textContent = 'Happy Birthday';
+          msg.className = 'party';
+
+          confetti.style.display = 'block';
+
+          btn.disabled = true;
+          btn.textContent = 'Enjoy 🎉';
+          btn.style.cursor = 'default';
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
