@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Listing</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h1 { margin-bottom: 16px; }
+    .count { margin-bottom: 10px; font-size: 0.9rem; color: #555; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 10px 14px; text-align: left; font-size: 0.9rem; }
+    th { background: #f0f0f0; font-weight: 600; }
+    tr:nth-child(even) { background: #fafafa; }
+    .empty { color: #888; }
+  </style>
+</head>
+<body>
+
+<h1>Product Listing</h1>
+
+<p class="count">Showing {{ total }} product{{ "s" if total != 1 else "" }}</p>
+
+{% if total == 0 %}
+  <p class="empty">No products found.</p>
+{% else %}
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price (₹)</th>
+        <th>Availability</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in products %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.category }}</td>
+        <td>₹{{ "{:,}".format(p.price) }}</td>
+        <td>{{ "In Stock" if p.available else "Out of Stock" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Company Portal — Login</h2>
+
+{% if error %}
+  <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="POST" action="/auth/login">
+
+  <label>Role</label><br/>
+  <select name="role" required>
+    <option value="">-- Select Role --</option>
+    <option value="admin">Admin</option>
+    <option value="employee">Employee</option>
+    <option value="hr">HR</option>
+  </select><br/><br/>
+
+  <label>Username</label><br/>
+  <input type="text" name="username" placeholder="Enter username" required/><br/><br/>
+
+  <label>Password</label><br/>
+  <input type="password" name="password" placeholder="Enter password" required/><br/><br/>
+
+  <input type="checkbox" name="remember_me" id="remember_me"/>
+  <label for="remember_me">Remember Me (7 days)</label><br/><br/>
+
+  <button type="submit">Login</button>
+
+</form>
+
+</body>
+</html>

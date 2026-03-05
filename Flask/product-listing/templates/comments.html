@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comments</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h1, h2 { margin-bottom: 12px; }
+
+    /* Statistics box */
+    .stats {
+      border: 1px solid #ccc; padding: 14px 18px;
+      margin-bottom: 24px; background: #fafafa;
+      font-size: 0.9rem; line-height: 1.8;
+    }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    th, td { border: 1px solid #ccc; padding: 10px 14px; text-align: left; font-size: 0.9rem; }
+    th { background: #f0f0f0; font-weight: 600; }
+
+    /* Conditional styling */
+    .flagged  { background: #fee2e2; }           /* red highlight  */
+    .badge {
+      display: inline-block; font-size: 0.75rem;
+      padding: 2px 8px; border-radius: 4px;
+      margin-left: 6px; font-weight: 600;
+    }
+    .trending  { background: #d1fae5; color: #065f46; }  /* green  */
+    .long-post { background: #dbeafe; color: #1d4ed8; }  /* blue   */
+  </style>
+</head>
+<body>
+
+<h1>User Comments</h1>
+
+<!-- Statistics -->
+<div class="stats">
+  <strong>Statistics</strong><br>
+  Total Comments: {{ total_comments }}<br>
+  Total Flagged: {{ total_flagged }}<br>
+  Most Liked: <strong>{{ most_liked.username }}</strong> — "{{ most_liked.comment }}" ({{ most_liked.likes }} likes)<br>
+  All Users: {{ all_usernames }}
+</div>
+
+<!-- Comments Table -->
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Username</th>
+      <th>Comment</th>
+      <th>Likes</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in comments %}
+    <tr class="{{ 'flagged' if c.flagged else '' }}">
+      <td>{{ loop.index }}</td>
+      <td>{{ c.username }}</td>
+      <td>
+        {{ c.comment }}
+        {% if c.comment | length > 200 %}
+          <span class="badge long-post">Long Post</span>
+        {% endif %}
+      </td>
+      <td>
+        {{ c.likes }}
+        {% if c.likes > 100 %}
+          <span class="badge trending">Trending</span>
+        {% endif %}
+      </td>
+      <td>{{ "Flagged" if c.flagged else "OK" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Futurama Info</title>
+</head>
+<body>
+
+<h2>Futurama Info</h2>
+<button onclick="fetchInfo()">Fetch Data</button>
+<pre id="output" style="margin-top:20px; background:#f4f4f4; padding:16px;"></pre>
+
+<script>
+  async function fetchInfo() {
+    const res  = await fetch("http://localhost:5000/futurama/info");
+    const data = await res.json();
+    document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+  }
+</script>
+
+</body>
+</html>

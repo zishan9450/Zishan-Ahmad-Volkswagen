@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Visit Count</title>
+</head>
+<body>
+
+<p>Welcome back, <strong>{{ username }}</strong>!</p>
+<p>You have visited this page <strong>{{ visit_count }}</strong> time{{ "s" if visit_count != 1 else "" }}.</p>
+
+<a href="/visit">Visit Again</a> |
+<a href="/clear">Clear Cookie</a>
+
+</body>
+</html>

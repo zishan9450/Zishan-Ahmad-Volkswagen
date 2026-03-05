@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Welcome {{ username }}</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; max-width: 400px; margin: auto; }
+    h1 { margin-bottom: 10px; }
+    .count {
+      font-size: 1rem; color: #555;
+      margin-bottom: 24px;
+    }
+    .count span { font-weight: 700; color: #4f46e5; }
+    a {
+      display: inline-block; padding: 8px 18px;
+      background: #e5e7eb; color: #333;
+      border-radius: 4px; text-decoration: none;
+      font-size: 0.9rem; margin-right: 10px;
+    }
+    a:hover { background: #d1d5db; }
+    a.revisit { background: #4f46e5; color: white; }
+    a.revisit:hover { background: #4338ca; }
+  </style>
+</head>
+<body>
+
+<h1>Hello, {{ username }}! 👋</h1>
+
+<p class="count">
+  You have visited this page <span>{{ visit_count }}</span>
+  time{{ "s" if visit_count != 1 else "" }}.
+</p>
+
+<a href="/welcome" class="revisit">Visit Again</a>
+<a href="/logout">Logout</a>
+
+</body>
+</html>

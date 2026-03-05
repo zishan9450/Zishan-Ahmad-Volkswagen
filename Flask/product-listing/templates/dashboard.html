@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ config.title }}</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h1 { margin-bottom: 6px; }
+    .role-info { color: #555; font-size: 0.9rem; margin-bottom: 20px; }
+    nav { margin-bottom: 20px; }
+    nav a { margin-right: 14px; text-decoration: none; color: #333; font-size: 0.9rem; }
+    nav a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 10px 14px; text-align: left; font-size: 0.9rem; }
+    th { background: #f0f0f0; font-weight: 600; }
+    tr:nth-child(even) { background: #fafafa; }
+    .btn-delete {
+      padding: 4px 10px; background: #fee2e2;
+      color: #991b1b; border: 1px solid #fca5a5;
+      cursor: pointer; font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>{{ config.title }}</h1>
+<p class="role-info">Logged in as: <strong>{{ role | capitalize }}</strong></p>
+
+<!-- Navigation links based on role -->
+<nav>
+  {% for link in config.nav_links %}
+    <a href="#">{{ link }}</a>
+  {% endfor %}
+</nav>
+
+<!-- Employee Table -->
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Department</th>
+      {% if config.can_see_salary %}<th>Salary (₹)</th>{% endif %}
+      {% if config.can_delete %}<th>Action</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for emp in employees %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ emp.name }}</td>
+      <td>{{ emp.department }}</td>
+      {% if config.can_see_salary %}
+        <td>₹{{ "{:,}".format(emp.salary) }}</td>
+      {% endif %}
+      {% if config.can_delete %}
+        <td><button class="btn-delete">Delete</button></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</body>
+</html>
