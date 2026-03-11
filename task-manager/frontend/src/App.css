@@ -1,0 +1,133 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f0f2f5;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 { margin-bottom: 1.5rem; font-size: 1.8rem; }
+
+/* ── Form ── */
+.task-form {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.task-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.task-form select,
+.filters select {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.task-form button {
+  padding: 0.55rem 1.2rem;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.task-form button:hover { background: #4338ca; }
+
+.error { color: #dc2626; margin-bottom: 0.75rem; font-size: 0.9rem; }
+
+/* ── Filters ── */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+  background: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* ── Table ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+th {
+  background: #4f46e5;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+td { padding: 0.7rem 1rem; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+tr.done td { opacity: 0.55; text-decoration: line-through; }
+
+tr:last-child td { border-bottom: none; }
+
+/* ── Priority Badges ── */
+.badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge.high   { background: #fee2e2; color: #dc2626; }
+.badge.medium { background: #fef9c3; color: #b45309; }
+.badge.low    { background: #dcfce7; color: #16a34a; }
+
+/* ── Action Buttons ── */
+.actions { display: flex; gap: 0.4rem; }
+
+.btn-toggle {
+  padding: 0.3rem 0.7rem;
+  background: #0ea5e9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.btn-toggle:hover { background: #0284c7; }
+
+.btn-delete {
+  padding: 0.3rem 0.7rem;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.btn-delete:hover { background: #dc2626; }
+
+.empty { text-align: center; padding: 2rem; color: #888; }
