@@ -1,0 +1,208 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Profile</title></head>
+<body>
+    <h2>Employee Profile</h2>
+    <p>Logged in as: <b>{{ session["username"] }}</b> ({{ session["role"] }})</p>
+    <a href="/logout">Logout</a><br><br>
+
+    <table border="1">
+        <tr><th>Field</th><th>Value</th></tr>
+        <tr><td>ID</td><td>{{ employee.id }}</td></tr>
+        <tr><td>Name</td><td>{{ employee.name }}</td></tr>
+        <tr><td>Email</td><td>{{ employee.email }}</td></tr>
+        <tr><td>Department</td><td>{{ employee.department }}</td></tr>
+        <tr><td>Username</td><td>{{ user.username }}</td></tr>
+        <tr><td>Role</td><td>{{ user.role }}</td></tr>
+    </table>
+    <br>
+    <a href="/employee/{{ employee.id }}/edit">Edit Profile</a>
+    {% if session["role"] in ["admin", "manager"] %}
+        | <a href="/employees">← Back to All Employees</a>
+    {% endif %}
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+
+        .navbar {
+            background: #1a1a2e;
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .navbar .brand { font-size: 18px; font-weight: 700; }
+        .navbar a { color: #f87171; text-decoration: none; font-size: 13px; margin-left: 16px; }
+
+        .container { max-width: 560px; margin: 40px auto; padding: 0 20px; }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .card-header {
+            background: #1a1a2e;
+            padding: 28px;
+            text-align: center;
+            color: white;
+        }
+        .avatar {
+            width: 64px; height: 64px;
+            background: #4f46e5;
+            border-radius: 50%;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+        }
+        .card-header h3 { font-size: 20px; }
+        .card-header p  { font-size: 13px; color: #aaa; margin-top: 4px; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+        .badge.admin    { background: #ede9fe; color: #6d28d9; }
+        .badge.manager  { background: #dbeafe; color: #1d4ed8; }
+        .badge.employee { background: #dcfce7; color: #15803d; }
+
+        .card-body { padding: 24px; }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #aaa;
+            letter-spacing: 1px;
+            margin: 16px 0 8px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            border-bottom: 1px solid #f1f1f1;
+            font-size: 14px;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-row .label { color: #888; font-weight: 600; }
+        .info-row .value { color: #1a1a2e; font-weight: 500; }
+
+        .card-footer {
+            padding: 16px 24px;
+            background: #fafafa;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #f1f1f1;
+        }
+        .btn {
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-primary   { background: #4f46e5; color: white; }
+        .btn-secondary { background: #e5e7eb; color: #374151; }
+        .btn:hover { opacity: 0.85; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span class="brand">🏢 Employee Portal</span>
+        <div>
+            <span style="color:#aaa; font-size:13px;">{{ session["username"] }}</span>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+
+            <!-- Header: Avatar + Name + Email + Role badge -->
+            <div class="card-header">
+                <div class="avatar">{{ employee.name[0] }}</div>
+                <h3>{{ employee.name }}</h3>
+                <p>{{ employee.email }}</p>
+                <span class="badge {{ user.role }}">{{ user.role }}</span>
+            </div>
+
+            <div class="card-body">
+
+                <!-- Personal Info -->
+                <div class="section-title">Personal Information</div>
+
+                <div class="info-row">
+                    <span class="label">Full Name</span>
+                    <span class="value">{{ employee.name }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <span class="value">{{ employee.email }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Department</span>
+                    <span class="value">{{ employee.department }}</span>
+                </div>
+
+                <!-- Account Info -->
+                <div class="section-title">Account Information</div>
+
+                <div class="info-row">
+                    <span class="label">Username</span>
+                    <span class="value">{{ user.username }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Role</span>
+                    <span class="value">{{ user.role | capitalize }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Employee ID</span>
+                    <span class="value">#{{ employee.id }}</span>
+                </div>
+
+                <!-- Manager Info -->
+                <div class="section-title">Reporting</div>
+
+                <div class="info-row">
+                    <span class="label">Manager</span>
+                    <span class="value">
+                        {% if manager %}
+                            {{ manager.name }} ({{ manager.email }})
+                        {% else %}
+                            <span style="color:#aaa;">No manager assigned</span>
+                        {% endif %}
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <a href="/employee/{{ employee.id }}/edit" class="btn btn-primary">✏️ Edit Profile</a>
+                {% if session["role"] in ["admin", "manager"] %}
+                    <a href="/employees" class="btn btn-secondary">← All Employees</a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

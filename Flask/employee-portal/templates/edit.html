@@ -1,0 +1,166 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Edit Employee</title></head>
+<body>
+    <h2>Edit Employee</h2>
+    <form method="POST">
+        Name:       <input type="text"  name="name"       value="{{ employee.name }}"       required><br><br>
+        Email:      <input type="email" name="email"      value="{{ employee.email }}"      required><br><br>
+        Department: <input type="text"  name="department" value="{{ employee.department }}" required><br><br>
+
+        {% if role == "admin" %}
+        Role:
+        <select name="role">
+            <option value="admin"    {% if user.role == "admin"    %}selected{% endif %}>Admin</option>
+            <option value="manager"  {% if user.role == "manager"  %}selected{% endif %}>Manager</option>
+            <option value="employee" {% if user.role == "employee" %}selected{% endif %}>Employee</option>
+        </select><br><br>
+
+        Assign Manager:
+        <select name="manager_id">
+            <option value="">-- None --</option>
+            {% for m in managers %}
+            <option value="{{ m.id }}" {% if employee.manager_id == m.id %}selected{% endif %}>
+                {{ m.name }}
+            </option>
+            {% endfor %}
+        </select><br><br>
+        {% endif %}
+
+        <input type="submit" value="Save Changes">
+    </form>
+    <br>
+    <a href="/employee/{{ employee.id }}">← Cancel</a>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+
+        .navbar {
+            background: #1a1a2e;
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .navbar .brand { font-size: 18px; font-weight: 700; }
+        .navbar a { color: #f87171; text-decoration: none; font-size: 13px; margin-left: 16px; }
+
+        .container { max-width: 520px; margin: 40px auto; padding: 0 20px; }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 32px;
+        }
+        h2 { font-size: 20px; color: #1a1a2e; margin-bottom: 24px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 18px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input:focus, select:focus { border-color: #4f46e5; }
+
+        .divider {
+            border: none;
+            border-top: 1px dashed #e5e7eb;
+            margin: 4px 0 18px;
+        }
+        .admin-section p {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .btn-row { display: flex; gap: 10px; margin-top: 8px; }
+        .btn {
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary   { background: #4f46e5; color: white; }
+        .btn-secondary { background: #e5e7eb; color: #374151; }
+        .btn:hover { opacity: 0.85; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span class="brand">🏢 Employee Portal</span>
+        <div>
+            <span style="color:#aaa; font-size:13px;">{{ session["username"] }}</span>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>✏️ Edit Employee</h2>
+            <form method="POST">
+                <label>Name</label>
+                <input type="text" name="name" value="{{ employee.name }}" required>
+
+                <label>Email</label>
+                <input type="email" name="email" value="{{ employee.email }}" required>
+
+                <label>Department</label>
+                <input type="text" name="department" value="{{ employee.department }}" required>
+
+                {% if role == "admin" %}
+                <hr class="divider">
+                <div class="admin-section">
+                    <p>🔐 Admin-only settings</p>
+                    <label>Role</label>
+                    <select name="role">
+                        <option value="admin"    {% if user.role == "admin"    %}selected{% endif %}>Admin</option>
+                        <option value="manager"  {% if user.role == "manager"  %}selected{% endif %}>Manager</option>
+                        <option value="employee" {% if user.role == "employee" %}selected{% endif %}>Employee</option>
+                    </select>
+
+                    <label>Assign Manager</label>
+                    <select name="manager_id">
+                        <option value="">-- None --</option>
+                        {% for m in managers %}
+                        <option value="{{ m.id }}" {% if employee.manager_id == m.id %}selected{% endif %}>
+                            {{ m.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                <div class="btn-row">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="/employee/{{ employee.id }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

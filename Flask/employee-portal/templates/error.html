@@ -1,0 +1,101 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Access Denied</title></head>
+<body>
+    <h2 style="color:red;">⚠ {{ message }}</h2>
+    <a href="/login">← Back to Login</a>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login — Employee Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 380px;
+        }
+        .card h2 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+            font-size: 22px;
+        }
+        .card p.subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+        .error {
+            background: #ffe0e0;
+            color: #cc0000;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 18px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input:focus { border-color: #4f46e5; }
+        input[type="submit"] {
+            width: 100%;
+            padding: 11px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        input[type="submit"]:hover { background: #3730a3; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🏢 Employee Portal</h2>
+        <p class="subtitle">Sign in to your account</p>
+        {% if error %}
+            <div class="error">⚠ {{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</body>
+</html>  
